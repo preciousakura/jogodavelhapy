@@ -3,7 +3,17 @@
 # Isabel Cristina de Oliveira Lopes
 # Matrícula: 493948
 
-rodadas = 0
+jogar = input("Escolha sua peça, Jogador 1 [X/O]: ").lower()
+while jogar not in "xo":
+    jogar = input("Peça inválida, Jogador 1, digite outra: ").lower()
+    
+if jogar[0] == "x":
+    rodada = True
+    
+elif jogar[0]=="o":
+    rodada = False
+
+partida = 0
  
 def matriz(linhas, colunas, val_inic): #Criar matriz
     mat = [[val_inic] * colunas for _ in range(linhas)]
@@ -41,47 +51,124 @@ def verifica_jogada(peca, matriz):
     while jogada: #Condição para o while rodar
         if len(peca) == 3 and peca: #se digitarem mais de 3 caracteres, pedirei outra jogada
             if not(peca[0] not in "aAbBcC") and (peca[1] == ",") and not(peca[2] not in '123'): #se não tiver o formato [letra,numero] pedirei outra jogada
-                linha, coluna = peca.split(",") #fatia a jogada em letra e numero
-                coluna = int(coluna) #tranforma o valor da coluna em inteiro
-                if linha == 'a': #converte de letra para número para ser usado na matriz
-                    linha = int(0)
-                elif linha == 'b':
-                    linha = int(1)
-                elif linha == 'c':
-                    linha = int(2)
+                coluna, linha = peca.split(",") #fatia a jogada em letra e numero
+                linha = int(linha) #tranforma o valor da coluna em inteiro
+                if coluna == 'a': #converte de letra para número para ser usado na matriz
+                    coluna = int(0)
+                elif coluna == 'b':
+                    coluna = int(1)
+                elif coluna == 'c':
+                    coluna = int(2)
                     
-                if matriz[linha][coluna-1] != -1: #verifica se a jogada já foi feita
-                    peca = input("Você já fez essa jogada! Digite outra: ").lower()
+                if matriz[linha-1][coluna] != -1: #verifica se a jogada já foi feita
+                    peca = input("Você já fez essa jogada! Digite outra [LETRA,NUMERO]: ").lower()
                     
                 else:
-                    return linha, coluna-1 #retorna a linha e a coluna convertida
+                    return linha-1, coluna #retorna a linha e a coluna convertida
                     jogada = False #para o while
-        peca = input("Coordenadas inválidas! Digite novamente: ").lower()
-        
-def fazer_jogada(matriz): 
-    linha, coluna = verifica_jogada(jogada, matriz)
-    if rodadas == 0:
-        jogador = input("Jogador 1 [X/O]: ").lower()
-        if jogador == "x":
-            rodada = True
-        elif jogador == "o":
-            rodada = False
+            else:
+                peca = input("Coordenadas inválidas! Digite novamente [LETRA,NUMERO]: ").lower()
         else:
-            while((jogador != "x") or (jogador != "o")):
-                jogador = input("Peça Inválida! Digite outra [X/O]: ").lower()
-    elif rodada:
-        input("Digite sua jogada: ").lower()
-        matriz[linha][coluna] = "X"
-        rodada = False
-    elif not(rodada):
-        matriz[linha][coluna] = "O"
-        rodada = True
+            peca = input("Coordenadas inválidas! Digite novamente [LETRA,NUMERO]: ").lower()
+        
+def fazer_jogada(matriz, rodada, partida): 
+
+    ganhar = True
+    while(ganhar):
+        print()
+        print()
+        partida += 1
+        print("-"*10, end=' ')
+        print("RODADA", partida, end=' ')
+        print("-"*10)
+        print()
+        print()
+        mostrar_jogo(matriz)
+        print()
+        print()
+        if partida%2 == 0:
+            jogar = 2
+        else:
+            jogar = 1
+            
+        print("VEZ DO JOGADOR ",jogar)   
+        linha, coluna = verifica_jogada(input("Digite sua jogada [LETRA,NUMERO]: ").lower(), matriz)
+        l = 0
+        c = 0
+        d = 0
+        
+        if rodada:
+            matriz[linha][coluna] = True
+            for x in range(3):
+                if matriz[linha][x] == True:
+                    l += 1
+            
+                if matriz[x][coluna] == True:
+                    c += 1
+                    
+            for i in range(len(matriz)): 
+                for j in range(len(matriz[0])): 
+                    if i==j:
+                        if matriz[i][j] == True:
+                            d += 1
+            
+            rodada = False
+        
+        elif not(rodada):
+            matriz[linha][coluna] = False
+            for x in range(3):
+                if matriz[linha][x] == False:
+                    l += 1
+            
+                if matriz[x][coluna] == False:
+                    c += 1
+                    
+            for i in range(len(matriz)): 
+                for j in range(len(matriz[0])): 
+                    if i==j:
+                        if matriz[i][j] == False:
+                            d += 1
+            
+            rodada = True
+        
+        if l == 3 or c == 3 or d == 3:
+            print()
+            print()
+            print("-"*10, end=' ')
+            print("O JOGADOR", jogar, "GANHOU! PARABÉNS!!!!!", end=' ')
+            print("-"*10)
+            print()
+            print()
+            mostrar_jogo(matriz)
+            print()
+            print()
+            ganhar = False
+            
+        elif(partida > 8):
+            print()
+            print()
+            print("-"*10, end=' ')
+            print("DEU VELHA, NINGUÉM GANHOU HAHAHHA", end=' ')
+            print("-"*10)
+            print()
+            print()
+            mostrar_jogo(matriz)
+            print()
+            print()
+            ganhar = False
+        
+    
+
+
+        
+    
+                
         
          
 
 jogo = matriz(3,3,-1) #Criação da matriz principal do jogo da velha  
-fazer_jogada(jogo) 
-mostrar_jogo(jogo)
+fazer_jogada(jogo, rodada, partida) 
+
 
 
 
