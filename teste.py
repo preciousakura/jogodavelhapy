@@ -1,4 +1,4 @@
-def acharLinha(entrada, item):
+def acharLinha(entrada, item): #busca binária
     primeiro = 0
     ult = len(entrada)-1
     found = False
