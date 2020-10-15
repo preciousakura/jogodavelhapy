@@ -149,22 +149,25 @@ def possibilidades(matriz, jogada_atual): #função que comunica ao usuário que
     #checar diagonal principal
     for i in range(3):
         if matriz[i][i] == jogada_atual:
-                checar += 1
+            checar += 1
         elif matriz[i][i] != -1 and matriz[i][i] != jogada_atual:
-                checar -= 1   
-        if checar>1:
-            possibilidades += 1 
+            checar -= 1   
+
+    if checar>1:
+        possibilidades += 1 
+    checar = 0
 
     #checar diagonal secundaria
     dg = 2
     for i in range(3):
         if matriz[i][dg] == jogada_atual:
-                checar += 1
+            checar += 1
         elif matriz[i][dg] != -1 and matriz[i][dg] != jogada_atual:
-                checar -= 1   
-        if checar>1:
-            possibilidades += 1 
-        dg -= 1    
+            checar -= 1   
+            dg -= 1 
+
+    if checar>1:
+        possibilidades += 1    
 
     if possibilidades > 1: 
         return True
@@ -187,8 +190,7 @@ def rodar_jogo(): #roda o jogo
         mostrar_tabuleiro(jogo)
 
         velha = 0 #variavel para contar as posições preenchidas da matriz
-        play = True
-        while play:
+        while True:
             print("\n-- VEZ DO JOGADOR",jogador+1," --")
             linha, coluna = verificar_jogada(input("Digite as coordenadas [LETRA, NUMERO]: ").upper(), jogo)
             fazer_jogada(linha,coluna,jogada,jogo)
@@ -203,7 +205,7 @@ def rodar_jogo(): #roda o jogo
                     jogador1 += 1
                 else:
                     jogador2 += 1
-                play = False
+                break
             
             elif velha == 8: #casos todas as posições sejam preenchidas sem haver um ganhador, a partida acaba 
                 partida += 1
