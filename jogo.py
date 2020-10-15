@@ -149,7 +149,7 @@ def possibilidades(matriz, jogada_atual): #função que comunica ao usuário que
     for i in range(3):
         if matriz[i][i] == jogada_atual:
                 checar += 1
-        elif matriz[i][i] != -1 and matriz[j][i] != jogada_atual:
+        elif matriz[i][i] != -1 and matriz[i][i] != jogada_atual:
                 checar -= 1   
         if checar>1:
             possibilidades += 1
@@ -160,7 +160,7 @@ def possibilidades(matriz, jogada_atual): #função que comunica ao usuário que
     for i in range(3):
         if matriz[i][dg] == jogada_atual:
                 checar += 1
-        elif matriz[i][dg] != -1 and matriz[j][i] != jogada_atual:
+        elif matriz[i][dg] != -1 and matriz[i][dg] != jogada_atual:
                 checar -= 1   
         if checar>1:
             possibilidades += 1
@@ -180,10 +180,9 @@ def rodar_jogo(): #roda o jogo
 
     while opcao == "S": 
         jogo = matriz(3,3,-1)
-        print("\n------ PARTIDA",partida+1,"------\n")
-        print("PLACAR\n\n"+
-              "Jogador 1:", jogador1, "\n"+
-              "Jogador 2:", jogador2, "\n")
+        print("\n+-----------------------+")
+        print("|       PARTIDA",partida+1,"      |")
+        print("+-----------------------+\n")
 
         jogada = definir_jogadores() 
         mostrar_tabuleiro(jogo)
@@ -216,14 +215,20 @@ def rodar_jogo(): #roda o jogo
                 if possibilidades(jogo,jogada):
                     print("\nVocê já perdeu, jogador",jogador+1)
                 jogada = not(jogada)
-                
-
+        
+        print("+-----------------------+")
+        print("|      PLACAR ATUAL     |")
+        print("+-----------------------+\n")
+        print("Jogador 1:", jogador1, "\n"+
+              "Jogador 2:", jogador2, "\n")
         opcao = input("Continuar? [S/N] ").upper() # continuar o jogo, se não, voltar ao menu principal
         if opcao not in "SN":
             opcao = input("Opção Inválida! Digite novamente [S/N]: ".upper())
+    print("\n+-----------------------+")
+    print("|      PLACAR FINAL     |")
+    print("+-----------------------+\n")
+    print("Jogador 1:", jogador1, "\n"+
+          "Jogador 2:", jogador2, "\n")
+        
 
 menu()         
-
-
-
-
