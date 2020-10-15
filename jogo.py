@@ -13,6 +13,7 @@ def menu(): #menu que roda no início do jogo
 
         if(opcao == 1):
             rodar_jogo()
+
     print("Saindo...")
 
 def mostrar_tabuleiro(matriz): #mostra o tabuleiro atualizado
@@ -155,7 +156,7 @@ def possibilidades(matriz, jogada_atual): #função que comunica ao usuário que
             possibilidades += 1
     checar = 0   
 
-    #checar diagonal principal
+    #checar diagonal secundaria
     dg = 2
     for i in range(3):
         if matriz[i][dg] == jogada_atual:
@@ -190,12 +191,15 @@ def rodar_jogo(): #roda o jogo
         velha = 0 #variavel para contar as posições preenchidas da matriz
         play = True
         while play:
-            linha, coluna = verificar_jogada(input("\nDigite as coordenadas [LETRA, NUMERO]: ").upper(), jogo)
+            print("\n-- VEZ DO JOGADOR",jogador+1," --")
+            linha, coluna = verificar_jogada(input("Digite as coordenadas [LETRA, NUMERO]: ").upper(), jogo)
             fazer_jogada(linha,coluna,jogada,jogo)
 
             if (ganhar(jogo,linha,coluna,jogada)):
                 mostrar_tabuleiro(jogo)
-                print("\nParabéns, jogador",jogador+1,"! VOCÊ VENCEU!\n")
+                print("\n+--------------------------------------------+")
+                print("|     PARABÉNS, JOGADOR",jogador+1,"! VOCÊ VENCEU!     |")
+                print("+--------------------------------------------+\n")
                 partida += 1
                 if jogador == 0:
                     jogador1 += 1
@@ -205,7 +209,9 @@ def rodar_jogo(): #roda o jogo
             
             elif velha == 8: #casos todas as posições sejam preenchidas sem haver um ganhador, a partida acaba 
                 partida += 1
-                print("Deu velha, ninguém ganhou!\n")
+                print("°.......................°")
+                print("|       DEU VELHA       |")
+                print("°.......................°\n")
                 play = False
 
             else:
@@ -222,13 +228,11 @@ def rodar_jogo(): #roda o jogo
         print("Jogador 1:", jogador1, "\n"+
               "Jogador 2:", jogador2, "\n")
         opcao = input("Continuar? [S/N] ").upper() # continuar o jogo, se não, voltar ao menu principal
-        if opcao not in "SN":
-            opcao = input("Opção Inválida! Digite novamente [S/N]: ".upper())
+        while opcao not in "SN":
+            opcao = input("Opção Inválida! Digite novamente [S/N]: ").upper()
     print("\n+-----------------------+")
     print("|      PLACAR FINAL     |")
     print("+-----------------------+\n")
     print("Jogador 1:", jogador1, "\n"+
           "Jogador 2:", jogador2, "\n")
-        
-
 menu()         
