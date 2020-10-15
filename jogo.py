@@ -4,14 +4,14 @@ def matriz(linhas, colunas, val_inic): #Criar matriz
 
 def menu(): #menu que roda no início do jogo
     opcao = -1
-    while opcao != 0: 
+    while opcao != "0": 
         print("1. Jogar \n"+
               "0. Sair \n")
-        opcao = int(input("Digite uma opção: "))
-        while opcao > 1 or opcao < 0:
-            opcao = int(input("Opção Inválida! Digite uma opção: "))
+        opcao = input("Digite uma opção: ")
+        while opcao not in "10" or len(opcao)>1:
+            opcao = input("Opção Inválida! Digite uma opção: ")
 
-        if(opcao == 1):
+        if(opcao == "1"):
             rodar_jogo()
 
     print("Saindo...")
@@ -153,8 +153,7 @@ def possibilidades(matriz, jogada_atual): #função que comunica ao usuário que
         elif matriz[i][i] != -1 and matriz[i][i] != jogada_atual:
                 checar -= 1   
         if checar>1:
-            possibilidades += 1
-    checar = 0   
+            possibilidades += 1 
 
     #checar diagonal secundaria
     dg = 2
@@ -165,8 +164,7 @@ def possibilidades(matriz, jogada_atual): #função que comunica ao usuário que
                 checar -= 1   
         if checar>1:
             possibilidades += 1 
-        dg -= 1 
-    checar = 0     
+        dg -= 1    
 
     if possibilidades > 1: 
         return True
