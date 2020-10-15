@@ -153,7 +153,7 @@ def possibilidades(matriz, jogada_atual): #função que comunica ao usuário que
                 checar -= 1   
         if checar>1:
             possibilidades += 1
-        checar = 0   
+    checar = 0   
 
     #checar diagonal principal
     dg = 2
@@ -163,9 +163,9 @@ def possibilidades(matriz, jogada_atual): #função que comunica ao usuário que
         elif matriz[i][dg] != -1 and matriz[i][dg] != jogada_atual:
                 checar -= 1   
         if checar>1:
-            possibilidades += 1
-        checar = 0    
-        dg -= 1   
+            possibilidades += 1 
+        dg -= 1 
+    checar = 0     
 
     if possibilidades > 1: 
         return True
