@@ -1,3 +1,8 @@
+# Trabalho Prático – Jogo da Velha
+# Disciplina Fundamentos de Programação – Semestre 2020.1
+# Isabel Cristina de Oliveira Lopes
+# Matrícula: 493948
+
 def matriz(linhas, colunas, val_inic): #Criar matriz
     mat = [[val_inic] * colunas for _ in range(linhas)]
     return mat #retorna a matriz
@@ -27,7 +32,7 @@ def mostrar_tabuleiro(matriz): #mostra o tabuleiro atualizado
             print(" ---+---+---")
     print("  A   B   C")
 
-def definir_jogadores(nomePlay1,nomePlay2): #define a peça que o jogo vai começar e a retorna
+def definir_jogadores(nomePlay1,nomePlay2): #define a peça que o jogo vai começar
     peca = input("Escolha a peça, "+nomePlay1+" [X/O]: ").upper()
 
     while peca != "X" and peca != "O":
@@ -40,7 +45,7 @@ def definir_jogadores(nomePlay1,nomePlay2): #define a peça que o jogo vai come�
         jogador1 = False
         print("\n"+nomePlay1+": O\n"+nomePlay2+": X")
 
-    return jogador1
+    return jogador1 #retorna a peça que o jogo será começado
 
 def verificar_jogada(jogada, matriz): #verifica se a entrada do usuario está de acordo com os criterios pedidos
     validar = True
@@ -72,7 +77,7 @@ def verificar_jogada(jogada, matriz): #verifica se a entrada do usuario está de
                 if matriz[linha-1][coluna] != -1: #pede uma nova entrada se o usuario jogar uma jogada já feita
                     jogada = input("Você já fez essa jogada! Digite outra [LETRA,NUMERO]: ").upper()
                 else:
-                    return linha-1, coluna
+                    return linha-1, coluna #retorna a linha e coluna que será jogada
                     validar = False
 
 def fazer_jogada(linha, coluna, peca_atual, matriz): #atualiza a matriz com a jogada
@@ -102,8 +107,8 @@ def ganhar(matriz, linha, coluna, jogada_atual): #verifica se o usuario atual ga
 
 
     if l == 3 or c == 3 or diagonal == 3 or diagonal_secundaria == 3:
-        return True
-    return False
+        return True #se retornar true é porque alguém ganhou
+    return False #se retorna falso, ninguem ganhou na rodada
 
 def possibilidades(matriz, jogada_atual): #função que comunica ao usuário que está na iminência de jogar que ele já perdeu a rodada
     possibilidades = 0
@@ -151,19 +156,21 @@ def possibilidades(matriz, jogada_atual): #função que comunica ao usuário que
             checar += 1
         elif matriz[i][dg] != -1 and matriz[i][dg] != jogada_atual:
             checar -= 1   
-            dg -= 1 
+        dg -= 1 
 
     if checar>1:
-        possibilidades += 1    
+        possibilidades += 1   
+    checar = 0 
 
     if possibilidades > 1: 
-        return True
-    return False      
+        return True #se retorna true, o jogador que vai jogar ja perdeu devido ao numero de possibilidades maior que 1
+    return False     
 
 def rodar_jogo(): #roda o jogo
-    partida = 0
-    jogador1 = 0
-    jogador2 = 0
+    partida = 0 #conta as partidas
+    jogador1 = 0 #placar do jogador 1
+    jogador2 = 0 #placar do jogador 2
+    empate = 0 #placar do empate
     jogador = False
     opcao = "S"
     play1 = input("Digite o nome do jogador 1: ").upper()
@@ -197,10 +204,12 @@ def rodar_jogo(): #roda o jogo
                 break
             
             elif velha == 8: #casos todas as posições sejam preenchidas sem haver um ganhador, a partida acaba 
+                mostrar_tabuleiro(jogo)
                 partida += 1
-                print("°.......................°")
+                empate += 1
+                print("-.......................°")
                 print("|       DEU VELHA       |")
-                print("°.......................°\n")
+                print("-.......................°\n")
                 break
 
             else:
@@ -218,15 +227,17 @@ def rodar_jogo(): #roda o jogo
         print("|      PLACAR ATUAL     |")
         print("+-----------------------+\n")
         print(play1+":", jogador1, "\n"+
-              play2+":", jogador2, "\n")
+              play2+":", jogador2, "\n"+
+              "EMPATE:",empate,"\n")
         opcao = input("Continuar? [S/N] ").upper() # continuar o jogo, se não, o jogo para
-        while opcao not in "SN":
+        while opcao not in "SN" or not(opcao):
             opcao = input("Opção Inválida! Digite novamente [S/N]: ").upper()
     print("\n+-----------------------+")
     print("|      PLACAR FINAL     |")
     print("+-----------------------+\n")
     print(play1+":", jogador1, "\n"+
-          play2+":", jogador2, "\n")
+          play2+":", jogador2, "\n"+
+          "EMPATE:",empate,"\n")
     print("Até mais! Saindo..")
 
 
