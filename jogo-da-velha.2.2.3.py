@@ -27,7 +27,7 @@ def mostrar_tabuleiro(matriz): #mostra o tabuleiro atualizado
             print(" ---+---+---")
     print("  A   B   C")
 
-def definir_jogadores(nomePlay1): #define a peça que o jogo vai começar e a retorna
+def definir_jogadores(nomePlay1,nomePlay2): #define a peça que o jogo vai começar e a retorna
     peca = input("Escolha a peça, "+nomePlay1+" [X/O]: ").upper()
 
     while peca != "X" and peca != "O":
@@ -35,11 +35,10 @@ def definir_jogadores(nomePlay1): #define a peça que o jogo vai começar e a re
 
     if peca == "X":
         jogador1 = True
-
-        print("\nJogador 1: X\nJogador 2: O")
+        print("\n"+nomePlay1+": X\n"+nomePlay2+": O")
     else:
         jogador1 = False
-        print("\nJogador 1: O\nJogador 2: X")
+        print("\n"+nomePlay1+": O\n"+nomePlay2+": X")
 
     return jogador1
 
@@ -177,7 +176,7 @@ def rodar_jogo(): #roda o jogo
         print("|       PARTIDA",partida+1,"      |")
         print("+-----------------------+\n")
 
-        jogada = definir_jogadores(play1) 
+        jogada = definir_jogadores(play1,play2) 
         mostrar_tabuleiro(jogo)
         jogador_atual = play1
 
@@ -226,8 +225,8 @@ def rodar_jogo(): #roda o jogo
     print("\n+-----------------------+")
     print("|      PLACAR FINAL     |")
     print("+-----------------------+\n")
-    print("Jogador 1:", jogador1, "\n"+
-          "Jogador 2:", jogador2, "\n")
+    print(play1+":", jogador1, "\n"+
+          play2+":", jogador2, "\n")
     print("Até mais! Saindo..")
 
 
