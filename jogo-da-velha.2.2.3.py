@@ -201,7 +201,7 @@ def rodar_jogo(): #roda o jogo
                 print("°.......................°")
                 print("|       DEU VELHA       |")
                 print("°.......................°\n")
-                play = False
+                break
 
             else:
                 if jogador_atual == play1:
